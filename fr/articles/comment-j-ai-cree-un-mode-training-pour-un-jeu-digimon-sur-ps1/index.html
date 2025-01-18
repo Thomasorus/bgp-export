@@ -1,0 +1,720 @@
+﻿<!doctype html>
+<html prefix="og: http://ogp.me/ns#" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1FD316">
+  <link rel="alternate" type="application/rss" title="Latest articles" href="/fr/feed"/>
+  <title>
+    Comment j'ai créé un mode training pour un jeu Digimon sur PS1  </title>
+  <meta name="description" content="
+    Je suis un physicien. Je résous des problèmes. Et mon problème, c'est de m’entrainer à faire un combo infini de Stingmon sur un jeu vieux de 18 ans, sorti sur une console vieille de 25 ans.">
+  <meta property="og:title" content="How I created a training mode for a Playstation Digimon game">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="I am a physicist, I solve problems. And my problem was practicing a Stingmon infinite.">
+    <meta property="og:site_name" content="Bas Gros Poing">
+    <meta property="og:url" content="/en/articles/how-i-created-a-training-mode-for-a-playstation-digimon-game">
+    <meta property="og:image" content="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/f81ffc53b7-1701364374/digimon-rumble-arena-jaquette.jpg">
+    <meta property="og:image:height" content="992">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:article:author" content="Andre Demetrio">
+    <meta property="og:article:published_time" content="2021-01-17 09:00:00">
+    <meta property="og:article:modified_time" content="30/11/2023">
+    <meta property="og:article:tag" content="Digimon Rumble Arena">
+    <meta property="og:article:url" content="/en/articles/how-i-created-a-training-mode-for-a-playstation-digimon-game">
+    <meta property="og:article:description" content="I am a physicist, I solve problems. And my problem was practicing a Stingmon infinite.">
+    <meta property="og:article:site_name" content="Bas Gros Poing">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@basgrospoing">
+    <meta name="twitter:creator" content="@AndreaDProjects">
+    <meta name="twitter:title" content="How I created a training mode for a Playstation Digimon game">
+    <meta name="twitter:description" content="I am a physicist, I solve problems. And my problem was practicing a Stingmon infinite.">
+    <meta name="twitter:image" content="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/f81ffc53b7-1701364374/digimon-rumble-arena-jaquette.jpg">
+    <link rel="icon" href="/assets/images/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/assets/images/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/assets/images/icons/favicon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="/assets/images/icons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/assets/images/icons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/assets/images/icons/favicon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="canonical" href="/en/articles/how-i-created-a-training-mode-for-a-playstation-digimon-game">
+    <link rel="alternate" hreflang="fr" href="/fr/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1">
+
+<!-- COUPURE -->
+  <link rel="manifest" href="/assets/pwa/manifest.json">
+  <link rel="preload" href="/assets/css/base.css?v=1.0.12" as="style">
+  <link rel="preload" href="/assets/css/main.css?v=1.0.12" as="style">
+  <link rel="stylesheet" href="/assets/css/base.css?v=1.0.12">
+  <link rel="stylesheet" href="/assets/css/main.css?v=1.0.12">
+  <link rel=“preload” href="/assets/fonts/FuturaStd-ExtraBoldOblique.woff2" as=“font” type="font/woff2" crossorigin="anonymous">
+  <link rel=“preload” href="/assets/fonts/FuturaStd-ExtraBold.woff2" as=“font” type="font/woff2" crossorigin="anonymous">
+  <link rel=“preload” href="/assets/fonts/BauerBodoniStd-Italic.woff2" as=“font” type="font/woff2" crossorigin="anonymous">
+  <link rel=“preload” href="/assets/fonts/FuturaStd-LightOblique.woff2" as=“font” crossorigin="anonymous">
+  <link rel=“preload” href="/assets/fonts/FuturaStd-Light.woff2" as=“font” type="font/woff2" crossorigin="anonymous">
+
+  <!-- Theme switcher -->
+  <script>
+    //Change theme
+    function toggleDarkLight() {
+      var hasTheme = document.documentElement.hasAttribute('theme') ? true : false;
+      if (hasTheme == false) {
+        document.documentElement.setAttribute('theme', 'dark');
+        localStorage.setItem("theme", "dark");
+
+      }
+      if (hasTheme == true) {
+        {
+          document.documentElement.removeAttribute('theme');
+          localStorage.setItem("theme", "light");
+
+        }
+      }
+    }
+
+    function setThemeFromCookie() {
+      var hasTheme = document.documentElement.hasAttribute('theme') ? true : false;
+      var value = localStorage.getItem("theme");
+      if (hasTheme == true && value == "light") {
+        document.documentElement.setAttribute('theme', 'light');
+        localStorage.setItem("theme", "light");
+      }
+      if (hasTheme == false && value == "dark") {
+        document.documentElement.setAttribute('theme', 'dark');
+        localStorage.setItem("theme", "dark");
+      }
+
+    }
+    (function () {
+      setThemeFromCookie()
+    })();
+  </script>
+</head>
+
+<body>
+  <header>
+    
+<nav class="main-menu" id="">
+  <div class="main-menu__container">
+    <ul>
+                        <li class="menu__item" >
+        <a href="/fr/rounds">
+          <span>
+            Rounds</span>
+          <i class="rounds"></i>
+        </a>
+      </li>
+                        <li class="menu__item" id='active'>
+        <a href="/fr/articles">
+          <span>
+            Articles</span>
+          <i class="articles"></i>
+        </a>
+      </li>
+                        <li class="menu__logo" id="logo">
+        <a href="/fr/">
+          <img src="/assets/images/logo-pink.svg" alt="logo">
+        </a>
+      </li>
+      <li class="menu__item" >
+        <a href="/fr/podcasts">
+          <span>
+            Podcasts</span>
+          <i class="podcasts"></i>
+        </a>
+      </li>
+                  <li class="menu__item" >
+        <a href="http://patreon.com/basgrospoing" target="_blank" rel="noopener">
+          <span>
+            Soutenez BGP          </span>
+          <i class="help"></i>
+        </a>
+      </li>
+            
+
+    </ul>
+
+  </div>
+  <div id="Reading-progress">
+    <h5>
+      Comment j'ai créé un mode training pour un jeu Digimon sur PS1    </h5>
+    <span id="Progress-bar" class="bar">
+
+    </span>
+  </div>
+
+</nav>
+
+
+  </header>
+
+            <article id="magazine">
+            <div class="magazine__head white-bg">
+                                    <img loading="lazy" aria-hidden="true" srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b12ced072e-1701364374/digimon-cover-big-549x976-crop.jpg 550w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b12ced072e-1701364374/digimon-cover-big-1000x1000-crop.jpg 999w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b12ced072e-1701364374/digimon-cover-big-1920x1080-crop.jpg 1920w" />
+                            </div>
+
+            <div class="magazine__titles">
+                <h1 class="underline-m--pink">Comment j'ai créé un mode training pour un jeu Digimon sur PS1</h1>
+            </div>
+
+            <div class="magazine__content">
+
+                <div class="magazine__date">
+                    <p>
+                        <small>
+                            Publié le 
+                            17/01/2021</small>
+                    </p>
+                </div>
+                <em>Un jour Andrea Demetrio a relancé le jeu de combat de son enfance, Digimon Rumble Arena. Ce qui aurait dû être une chouette madeleine de Proust de quelques heures s'est transformé en une obsession de plusieurs jours visant à créer un mode entrainement afin d'apprendre l'infini de Stingmon.</em>
+                <p class="article__fight">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Calque_1" viewBox="0 0 89.5 59.9">
+                        <style>
+                            .st0 {
+                                fill: #dadada
+                            }
+
+                            .st1 {
+                                fill: #706f6f
+                            }
+                        </style>
+                        <path id="XMLID_61_" class="st0" d="M29.7 59.9L44 44l17.2 12.5-8.4-17.2 14.8 1.9-10.4-8.7 14.2-6.9-15.7-2 14-10.8-16.2 3.9L56.4 0 43 15l-3.4-9.6-2.2 10.7L18.8 3.6l11.5 16.5-16-1.1 13.3 9-20 4.1 23.6 3.6-17.1 15.6 22-11.3z" />
+                        <g id="XMLID_3_">
+                            <g id="XMLID_146_">
+                                <path id="XMLID_158_" class="st1" d="M3.2 26.3l11.5-1.4-.8 5-5.2.6-.3 1.8 4.6-.5-.7 4.6-4.6.5-1 6.1-6.3.7 2.8-17.4z" />
+                                <path id="XMLID_156_" class="st1" d="M15.9 24.7l6.2-.8-2.7 17.6-6.2.7 2.7-17.5z" />
+                                <path id="XMLID_154_" class="st1" d="M40.9 28.8c-.5 2.9-.8 5.3-3.2 7.8-2.1 2.3-5.1 3.7-7.8 4-5.2.6-8.9-2.2-8.1-7.9.9-5.8 5.5-9.7 10.9-10.4 3-.4 6.9.7 7.7 3.5l-6.2 2.9c-.3-.8-1.2-1.2-2.2-1.1-2.2.3-3.8 2.4-4.1 4.5-.3 1.9.6 3.6 2.6 3.4 1-.1 2.3-.7 2.8-1.8l-2.8.3.6-4.2 9.8-1z" />
+                                <path id="XMLID_152_" class="st1" d="M43 21.4l6-.7-.9 6 3.8-.5.9-6 6-.7-2.7 17.9-6 .7.9-6.2-3.8.4-.9 6.2-6 .7L43 21.4z" />
+                                <path id="XMLID_150_" class="st1" d="M59.3 19.4l13.1-1.6-.9 5.9-3.4.2-1.9 12.3-6.2.7 1.9-12.3-3.5.6.9-5.8z" />
+                                <path id="XMLID_147_" class="st1" d="M86.1 31.3c-.3 1.9-2.2 3.2-3.8 3.4-1.7.2-3.2-.7-2.9-2.6.3-1.9 2.2-3.2 3.8-3.4 1.7-.2 3.2.7 2.9 2.6zm-5.7-3.5l1.8-12.4 6-.7-1.8 12.4-6 .7z" />
+                            </g>
+                        </g>
+                    </svg>
+                </p>
+
+                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p><em>Digimon Rumble Arena</em>, initialement connu sous le nom de <em>Digimon Tamers - Battle Evolution</em>, est un jeu de la fin de l’ère Playstation sorti entre 2001 et 2003. C’est un platform fighter assez basique, avec des barres de vie traditionnelles, des contrôles simples et quelques mécaniques supplémentaires telles que des objets, des pièges dans les stages et des power-ups. Le jeu comprend 23 personnages tirés des 3 premières saisons de l’anime <em>Digimon </em>(jusqu’à <em>Tamers</em>), plus un personnage original créé pour le jeu : <em>Reapermon</em>, ou <em>Gokumon </em>en japonais.</p></div>
+</div>                                    <div class="magazine-container">
+<div class="video">
+<iframe src="https://www.youtube.com/embed/c_U-jpri-KA" frameborder="0" allowTransparency="true" style="border:none;overflow:hidden;width:1280;height:720;"></iframe></div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>J’ai beaucoup joué à ce jeu quand il est sorti. Avec mon frère et un ami, nous avons passé un nombre incalculable d'après-midi à se battre, à bannir <em>Seraphimon </em>(parce qu’on était nuls, mais aussi parce que mon frère était un peu trop fort avec), et on organisait parfois des tournois tous les trois ; dont un que j’ai, lâchement mais sûrement, gagné en jouant la montre avec la fameuse tactique de <em>Patamon </em>dans le stage de <em>Reapermon</em>.</p><p>Dix-huit ans plus tard, une fois adulte, j’ai trouvé le moyen de jouer de nouveau à ce jeu, cette fois en ligne, en utilisant l’émulateur <a href="https://mednafen.github.io/" rel="noopener noreferrer nofollow">Mednafen</a> et son jeu en ligne intégré. Partant de là, je suis entré en contact avec une communauté encore active qui organise des tournois locaux au Japon et en Nouvelle-Zélande, et qui m'a montré les combos les plus fous qu’il m’ait été donné de voir sur le jeu (dont certains que je n’aurais même pas imaginé possible de réaliser).</p><p>Pris d’excitation, j’ai relancé le jeu et décidé de tester moi-même des choses avec mon vieux main, <em>Stingmon</em>. J’avais entendu parler d’un infini avec son <em>standing melee</em> et il fallait absolument que j’essaie ça ! Sauf que… Le jeu n’avait pas de mode training. J’ai donc lancé le mode 2 joueurs, placé les deux persos dans un coin, et commencé à tester le combo.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+	
+			
+			<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/9ed970a467-1701364374/stingmon-infinite-200x-blur1-q20.jpg"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/9ed970a467-1701364374/stingmon-infinite-400x.jpg 400w" 
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/9ed970a467-1701364374/stingmon-infinite-400x.jpg 400w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/9ed970a467-1701364374/stingmon-infinite-600x.jpg 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/9ed970a467-1701364374/stingmon-infinite-800x.jpg 800w"/> 
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>À ma grande surprise, tout s’est très bien passé. Le compteur de combo a grimpé, la vie est descendue et j’étais content d’avoir trouvé un combo <em>0-to-death</em>, donc je suis tout de suite allé le poster sur le <a href="https://discord.gg/DTpRqwd" rel="noopener noreferrer nofollow">Discord de la communauté</a>… Pour me voir répondre que “le compteur de combo in-game ne marche pas vraiment” et que mon loop infini “pouvait en fait être bloqué après le second hit”, mais <strong>pouvait </strong>devenir un vrai infini avec un timing précis. Je vous épargne mes jurons.</p><p>J’ai relancé le jeu, je suis retourné dans le mode 2 joueurs, avec un setup bizarre qui me permettait de forcer le joueur 2 à bloquer en appuyant sur un bouton, pendant que de l’autre main, je m’entrainais à mon timing. Ce n’était vraiment pas la meilleure solution, c’était même complètement impraticable, en plus du fait que ça impliquait l’utilisation de beaucoup trop de savestates. C’était la goutte d’eau.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+					<video class="magazine-container__video lazy"
+				autoplay playsinline loop mute				>
+				<source data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/e313a55fb8-1701364374/fakeinfinite-800x.mp4">
+			</video>
+							<figcaption class="magazine__sub-image-citation">
+				<small>
+					Malgré les apparences ceci n'est pas un vrai combo.				</small>
+			</figcaption>
+			</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Je suis un physicien. Je résous des problèmes. Et mon problème, c’était de m’entrainer sur un combo infini de <em>Stingmon </em>sur un jeu vieux de 18 ans, sorti sur une console vieille de 25 ans.</p><p>Ma première réaction fut donc de faire ce que n’importe quel adulte de 30 ans sain d’esprit aurait fait à ma place : lancer Visual Studio 2019 pour créer un programme en C++ qui me permettrait d’envoyer des inputs de clavier à Mednafen pour “simuler” la garde du joueur 2, sans que j’aie à faire quoi que ce soit sur ma manette. Si l’idée semblait bonne, et avait l’air de marcher (en essayant dans Notepad ++, les inputs étaient envoyés au rythme désiré), en pratique Mednafen méprisait complètement mon programme et se riait bien de moi et de mes tentatives pathétiques de le contrôler.</p><p>Ce n’était pas juste une provocation. <strong>C’était une</strong> <strong>déclaration de guerre</strong>.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      BizHawk, LUA, et pourquoi vous ne devriez jamais mettre au défi un physicien    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>J’étais particulièrement salé. Toute une après-midi gâchée à cause d’un émulateur arrogant qui ne voulait pas accepter mes simulations d’inputs. Ce soir-là, je demandais à la communauté de <em>Digimon Rumble Arena</em> si quelqu’un avait la moindre piste… Et c’est comme ça que je croisai pour la première fois la route de <a href="http://tasvideos.org/BizHawk.html" rel="noopener noreferrer nofollow">Bizhawk</a>. J’avais déjà entendu parler de BizHawk, grâce à <a href="https://medium.com/gyroscopesoftware/how-we-built-an-ai-to-play-street-fighter-ii-can-you-beat-it-9542ba43f02b" rel="noopener noreferrer nofollow">un article</a> à propos d’un groupe de buisness analysts qui travaillaient sur le machine learning appliqué à la finance, et qui utilisaient Bizhawk pour apprendre à une IA à jouer à Street Fighter II.</p><p>Bizhawk n’est pas juste un émulateur : c’est toute une suite d’outils pour le speedrun automatisé, avec des routines pour surveiller et modifier la RAM de la machine émulée, ainsi qu’un environnement poussé pour éditer des scripts dans le <a href="https://www.lua.org/" rel="noopener noreferrer nofollow">langage LUA</a>. Dès que j’ai commencé à creuser le sujet, j’ai compris que c’était l’arme qu’il me fallait pour mener mon combat.</p><p>Je n’y connaissais absolument rien à LUA, mais je suis un programmeur relativement compétent ; ayant grandi avec <a href="https://www.ruby-lang.org/en/" rel="noopener noreferrer nofollow">le langage Ruby</a> (coucou RPG Maker XP), j’ai transféré mes connaissances vers le langage <a href="https://fr.wikipedia.org/wiki/C%2B%2B" rel="noopener noreferrer nofollow">C++</a>, construit une application avec interface graphique en <a href="https://docs.microsoft.com/en-us/dotnet/csharp/" rel="noopener noreferrer nofollow">C#</a> pour une collaboration entre physiciens (sans connaître le langage au préalable).</p></div>
+</div>                                    <div class="magazine-container">
+	<figure class="magazine__imageright">
+					<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/cf12e1f849-1701364374/labview2-175x-blur1-q20.png"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/cf12e1f849-1701364374/labview2-350x.png 350w"
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/cf12e1f849-1701364374/labview2-350x.png 350w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/cf12e1f849-1701364374/labview2-540x.png 540w" />
+					</figure>
+	<div class="magazine__text">
+       <p>Et je suis aussi ce type qui a dû maintenir une énorme base de code<em> </em><a href="https://fr.wikipedia.org/wiki/LabVIEW" rel="noopener noreferrer nofollow">LabView</a> pour une expérience (si vous ne savez pas ce qu’est LabView, imaginez un langage de programmation fait par Fisher Price, avec des blocs à faire glisser qui représentent des actions, des câbles qui les relient pour construire un flot de données, le tout sans outils vraiment pratiques à utiliser pour zoomer ou dézoomer sur la grille. Si ça vous évoque un cauchemar sans nom, c’est parce que c’en est un).</p>	</div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Tout ce qu’il me fallait, c’était un <a href="https://www.twilio.com/blog/how-to-write-lua-scripts-for-video-games-with-the-bizhawk-emulator" rel="noopener noreferrer nofollow">tutoriel de base sur LUA</a>, et j’étais paré. Les premiers tests se sont étonnamment bien passés. Je pouvais envoyer des inputs du joypad via le script LUA et contrôler le joueur 2 avec du code, le faisant bloquer, mettre des balayettes, garder et attaquer sans problème. Créer une interface graphique basique fut aussi relativement rapide, grâce aux librairies LUA de BizHawk. En moins d’une après-midi de boulot, j’avais un script d’ennemi un peu brut mais fonctionnel.</p><p>Et puis, je suis arrivé à l’étape numéro deux : geler les barres de vie. On ne peut pas parler de training mode si le timer continue et qu’on risque de mettre l’adversaire KO au 15ème essai raté de l’infini de <em>Stingmon</em>. Bien sûr, recharger des sauvegardes de l'état du jeu peuvent aider, mais puisque j’avais commencé quelque chose, je voulais le faire du mieux que je le pouvais.</p><p>Et pour faire ça, j’ai plongé dans ce monde merveilleux qu’est l’exploration de la RAM. C'est peu de dire que j’allais en avoir pour mon argent.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      Des barres de vie, une fausse piste, et d’obscurs sites de codes pour GameShark    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>La première chose qui vous vient à l’esprit, quand vous vous retrouvez à contempler des tableaux sans fin, qui contiennent quelque 500 000 valeurs hexadécimales bizarres et en bazar, c’est de remettre en question vos choix de vie.</p><p>Parce que quand vous vous mettez à faire de la rétro-ingénierie sur des adresses mémoire brutes d’un jeu si vieux qu’il pourrait légalement boire et voter, c’est qu’un truc a du merder, quelque part, à un moment. Ensuite seulement, vous vous ressaisissez, vous vous rappelez pourquoi vous êtes là, à fixer ces nombres, tel Neo contemplant le code source de la Matrice : vous êtes là pour lab cet infini de <em>Stingmon</em> dans <em>Digimon Rumble Arena</em>.</p></div>
+</div>                                    <div class="magazine__full-img white-bg">
+
+            <img loading="lazy"
+            class="lazy"
+            src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/44152604bd-1701364374/screenshot2-300x-blur1-q20.png"
+            data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/44152604bd-1701364374/screenshot2-600x.png 600w"
+            data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/44152604bd-1701364374/screenshot2-600x.png 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/44152604bd-1701364374/screenshot2-800x.png 800w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/44152604bd-1701364374/screenshot2-1600x.png 1600w" />
+        </div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Et il s’avère que tout compte fait, fouiller dans des adresses RAM, en tout cas pour les jeux de combat, n’est pas si douloureux que ça en a l’air dans la mesure où on peut rapidement identifier les valeurs dont on a besoin. Vous cherchez le timer ? Trouvez la valeur qui continue de baisser à chaque frame, de manière régulière. Vous cherchez la vie ? Faites une recherche après chaque coup et comparez les valeurs de RAM avec les précédentes, jusqu’à ce que vous en trouviez une qui ne baisse qu’une fois que vous avez frappé l’adversaire.</p><p>Il y a une certaine <strong>logique </strong>et une certaine <strong>beauté </strong>là-dedans.</p><p>Du coup, avec la naïveté très sincère du débutant qui a des étoiles plein les yeux, j’ai concentré mes efforts sur la recherche de ces valeurs. J’ai pris <em>Gatomon </em>et <em>Agumon</em>, choisi certains des stages les moins pénibles (croyez-moi, vous ne voulez clairement pas faire ça dans <em>Recycling</em> ou <em>Revolution</em>), et j’ai lancé mon outil permettant d'observer la mémoire du jeu<em>.</em> En quelques minutes, j’avais trouvé deux valeurs prometteuses, qui descendaient de 120 à 0 en adéquation avec les barres de vie des personnages. J’ai cru avoir visé juste, j’ai sauvegardé les adresses et changé de stage pour confirmer mon intuition. Les valeurs étaient toujours les mêmes : <strong>Boom, jackpot !</strong> Puis j’ai fait le dernier test : changer les personnages. Et c’est alors que mon monde s’est écroulé, dans un éboulement de débris et une montagne de poussière.</p><p>Ce que je m’attendais à trouver : une valeur entre 0 et 120.</p><p>Ce que j’ai réellement trouvé : un charabia aléatoire qui pourrait probablement invoquer <em>Cthulhu</em> ou un autre <em>Ancien</em> si on le lisait à l’envers, en face d’un miroir, trois fois de suite.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+					<video class="magazine-container__video lazy"
+				autoplay playsinline loop mute				>
+				<source data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b49aec7a7a-1701364374/sardonicrecentgelding-mobile.mp4">
+			</video>
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Ces adresses mémoires dépendaient des personnages. Et, cerise sur le gâteau, elles n’étaient même pas les vraies valeurs de vie, mais la taille en pixels à l’instant T des barres de vie sur l'interface du jeu. Un peu de vulgarité s’en est suivie. BEAUCOUP, en fait. J’étais revenu au point de départ. Je n’avais trouvé aucune règle sur la position de ces valeurs et je n’avais aucune autre idée. Je décidais donc d’utiliser mon arme secrète : des sites de cheat code pour GameShark.</p><p>Quelqu’un avait forcément trouvé une manière d’avoir des points de vie infinis sur un personnage. C’était la base des cheat codes. Score infini, timer infini, vie infinie et <em>1-hit KO</em>. On peut s’attendre à ce que des gens aient trouvé ces codes pour n’importe quel ancien jeu de combat sur console qui se respecte ! Et j’étais chanceux. Sur <a href="http://bsfree.shadowflareindustries.com/index.php?s=1&amp;d=8&amp;g=8415&amp;c=20939" rel="noopener noreferrer nofollow">un site assez louche</a> au look début 2000, j’ai trouvé quelle adresse mémoire titiller pour geler les barres de vie et le timer autant que je le voulais. Ce n’était pas bien joli, ce n’était pas parfait, et ça faisait crasher le jeu si le code était envoyé pendant un écran de chargement; mais ça marchait.</p><p>Rapide, crade, peut-être même <em>carrément dépravé</em>, mais ça faisait le boulot à merveille : j’avais un script LUA de training mode basique chargé dans <em>Digimon Rumble Arena</em> pour contrôler l’adversaire et geler les barres de vie.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+	
+			
+			<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/5b0fd5ba90-1701364374/gameshark-200x-blur1-q20.jpg"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/5b0fd5ba90-1701364374/gameshark-400x.jpg 400w" 
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/5b0fd5ba90-1701364374/gameshark-400x.jpg 400w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/5b0fd5ba90-1701364374/gameshark-600x.jpg 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/5b0fd5ba90-1701364374/gameshark-800x.jpg 800w"/> 
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Alors que je terminais le script pour les coups de base, j’ai décidé d’ajouter une deuxième fonction pour forcer l’adversaire à exécuter un mouvement spécifique, que ce soit marcher, dasher, sauter ou autres joyeusetés. Tout s’est bien passé, à première vue, mis à part sur un point tout à fait futile : je ne pouvais pas faire se déplacer l'adversaire vers le joueur ou loin de lui, seulement à droite ou à gauche de manière absolue.</p><p>Forcément, je n’avais pas accès aux valeurs des positions, donc c’était à prévoir. Mais c’était pénible. Très pénible. Pire en fait, puisque le script était quasiment inutilisable en l’état, avec l’adversaire qui avançait vaillamment dans une direction donnée sans aucune forme d’intérêt pour le joueur. J’avais trouvé mon prochain problème à résoudre, et je peux vous dire que j’étais prêt à tout retourner.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      De l'espoir, des positions, et de la lumière au bout du tunnel    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Après une bonne nuit de sommeil, j’étais prêt à plonger de nouveau dans la mémoire du jeu. Je devais trouver ces valeurs de position en X. C’était la première étape vers une option de mouvement fonctionnelle, et je n’étais pas prêt à me contenter de moins. Trouver ces positions ne fut pas le plus dur, en tout cas au début. J’ai choisi deux personnages, le stage du volcan, et j’ai joué avec la mémoire, jusqu’à ce que je trouve une valeur (un entier de 4 bytes pour être plus précis) qui bougeait de manière synchronisée avec le joueur 1, et une autre valeur similaire qui bougeait avec le joueur 2.</p><p>Si vous vous rappelez de la première fausse piste, j’ai été cette fois BEAUCOUP plus prudent. J’ai changé le stage ainsi que le deuxième personnage, et répété l'expérience. Même valeurs. Puis, j’ai changé le premier personnage et vérifié si leurs positions étaient toujours là où elles devaient être. Tout était bon.</p><p>J’ai laissé échapper un sourire. Pour une fois, quelque chose se passait <em>comme prévu</em>. J’ai édité mon script, changé l’horrible mouvement droite/gauche pour un “en avant/en arrière” bien plus élégant, et j’étais bon pour ma journée. J’ai donc essayé d’enregistrer un clip pour montrer la fonctionnalité aux membres du Discord <em>Digimon Rumble Arena</em>. C’est là que tout s’est écroulé une nouvelle fois.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+					<video class="magazine-container__video lazy"
+				autoplay playsinline loop mute				>
+				<source data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/ac4f376eb5-1701364374/stingmon.mp4">
+			</video>
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Remontez au paragraphe précédent, relisez-le : j’ai changé de stage plusieurs fois, et j’ai changé le 2ème personnage. Puis j’ai changé le premier. Mais je n’ai pas vérifié l’adresse du deuxième personnage à nouveau, quand j’ai fait le dernier test. Et ça... c’était une erreur.</p><p>Il se trouve que, si la localisation de la position du premier personnage dans la mémoire est complètement indépendante du stage et du personnage lui-même, l’adresse du second personnage ne l’est pas. J’ai lâché un paquet de grossièretés, frappé ma tête contre le mur, un bon paquet de fois. La mauvaise nouvelle : je n’étais pas sorti de là. La bonne : j’avais une piste.</p><p>L’adresse de la position du second personnage dépendait seulement de qui était le premier personnage. Et l’adresse du premier personnage était, elle, toujours fixe. Ce n’était pas aussi grave que je le pensais. Il y avait toujours un espoir.</p><p>Parce que j'avais déterminé que cette valeur était indépendante du stage, j’ai simplement pris une fois chacun des 24 personnages, contre un seul adversaire choisi au hasard, dans le stage du volcan. J’ai trouvé la valeur de départ de la position X du joueur 2 (327680, un nombre que je n’oublierai jamais après cette expérience), lancé une recherche dans la mémoire et, lentement mais sûrement, rempli un tableau de valeurs qui reliait la position en mémoire du joueur 1 à la position en mémoire du joueur 2.</p><p>La position dans la mémoire indiquant où étaient stockés les positions des personnages fut de nouveau trouvée sur le site douteux déjà mentionné, puisque “jouer n’importe quel personnage sans avoir à grinder le mode arcade” est un autre membre premium du club très select des “cheats essentiels à n’importe quel jeu de baston des années 90”.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+	
+			
+			<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/2be5b60ab6-1701364374/screenshot3-200x-blur1-q20.png"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/2be5b60ab6-1701364374/screenshot3-400x.png 400w" 
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/2be5b60ab6-1701364374/screenshot3-400x.png 400w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/2be5b60ab6-1701364374/screenshot3-600x.png 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/2be5b60ab6-1701364374/screenshot3-800x.png 800w"/> 
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Avec ces nouvelles connaissances et un peu de boulot, le script faisait finalement ce qui était prévu : bouger l’adversaire près ou loin du joueur en effectuant une action définie. J’appelais ça : une victoire.</p><p>J’avais plongé dans la matrice et j’en été revenu avec le trésor que je convoitais. Ça aurait suffit à la plupart des gens, mais je sentais que je pouvais faire plus. J’avais le sentiment d’avoir ouvert une brèche, et que j’étais très proche de goûter au fruit défendu du savoir.</p><p>Il était temps de ravager les enfers. Avec l’artillerie lourde.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      Quel Wargreymon est le plus fort ?    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Il y a 18 ans, mon frère et moi n’arrivions pas à nous mettre d’accord sur quel <em>WarGreymon</em>, le classique ou le noir, avait les coups speciaux les plus forts. <em>Terra Force</em> et <em>Terra Destroyer</em>. <em>Yin</em> et <em>Yang</em>. Il n’y avait aucun mode training et encore moins de valeurs numériques dans <em>Digimon Rumble Arena </em>; et mesurer les barres de vie avec une règle sur l’écran incurvé d’une télé 4:3 cathodique n’était pas des plus pratique (vous pouvez toujours faire le test chez vous et m’envoyer les résultats via pigeon voyageur, je vous attends). D'où la discussion sans fin sur qui était le meilleur <em>WarGreymon</em>. Il était temps de cracker le code. <strong>Il était temps de</strong> <strong>savoir</strong>, pour de bon, à la lumière des chiffres et de la science.</p><p>Mon succès avec les valeurs des positions m’avait donné un coup de fouet. Je pensais pouvoir cracker ce code, et je jetais de nouveau un œil à ces valeurs de 0 à 120 qui m’avaient échappé la première fois. Elles ne dépendaient que des deux personnages choisis, et étaient complètement indépendantes du stage. Il n’y avait pas d’adresse fixe, mais il <em>devait</em><strong> </strong>y avoir un truc, une sorte de règle pour les organiser.</p></div>
+</div>                                    <div class="magazine-container">
+	<figure class="magazine__imageright">
+					<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/df98b9b036-1701364374/digital-monster-art-book-20th-full-2262353-175x-blur1-q20.jpg"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/df98b9b036-1701364374/digital-monster-art-book-20th-full-2262353-350x.jpg 350w"
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/df98b9b036-1701364374/digital-monster-art-book-20th-full-2262353-350x.jpg 350w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/df98b9b036-1701364374/digital-monster-art-book-20th-full-2262353-540x.jpg 540w" />
+					</figure>
+	<div class="magazine__text">
+       <p>Le premier essai fut vain : j’ai essayé d’utiliser les mêmes variations que pour les positions, mais ça ne fonctionnait pas du tout. C’est là que les maths sont entrées en jeu. J’ai commencé à faire des essais avec trois personnages : <em>Gatomon</em>, <em>Agumon</em> et <em>Guilmon</em>. J’ai lancé des matchs dans toutes les combinaisons possibles et noté les valeurs mémoires qui me semblaient les plus pertinentes.</p>	</div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>J’avais l’intuition que, puisque les positions ne dépendaient pas du stage, l’adresse du premier joueur devait être stockée dans la mémoire du jeu en tant que valeur spécifique respectant cette forme : <strong>a</strong> + <strong>x</strong> + <strong>y</strong> ; <strong>a</strong> étant une adresse mémoire relative contenant des données (sous forme de <a href="https://fr.wikipedia.org/wiki/Variable_(informatique)" rel="noopener noreferrer nofollow">variable</a>) propres au personnage ; <strong>x</strong> étant la taille des variables du premier personnage et <strong>y</strong> la taille des variables du second personnage. C’était une hypothèse que je devais vérifier. La méthode scientifique, vous comprenez ? <strong>a</strong> devait avoit une valeur immuable (en programmation on appelle ça une <a href="https://fr.wikipedia.org/wiki/Constante" rel="noopener noreferrer nofollow">constante</a>), sans quoi toute ma réflexion n’avait pas de sens.</p><p>C’était mon hypothèse la plus probable. J’ai assigné <strong>x</strong> à <em>Gatomon</em>, <strong>y</strong> à <em>Guilmon</em> et <strong>z</strong> à <em>Agumon</em>, en construisant un système linéaire à 3 équations et 4 variables.<em> (ndt: en mathématiques, un système d'équations linéaires consiste, pour faire simple, à trouver des valeurs inconnues utilisées simultanément par plusieurs équations. C'est ce qui se passe au Sudoku où, pour trouver le bon chiffre, il faut qu'il fonctionne avec le reste du tableau. Pour un exemple concret voir <a href="https://www.youtube.com/watch?v=UPIz65G4f48" rel="noopener noreferrer nofollow">ici</a>)</em>.</p><p><strong>Trois</strong> équations.</p><p><strong>Quatre</strong> variables.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      Des systèmes linéaires à 4 variables ?!    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Si vous avez une compréhension ne serait-ce que basique des mathématiques, cela devrait faire sonner en vous une alarme au moins aussi bruyante qu’un compteur Geiger durant la catastrophe de Tchernobyl : il y a plus de variables que d'équations, ce qui rend ce système linéaire indéterminé, et donc impossible à résoudre.</p><p>Il me fallait une quatrième équation, et c’est là que j’ai eu l’idée d’utiliser en plus les matchs miroir. Dans ces cas-là, l’adresse mémoire, si mon hypothèse tenait debout, devait être égale à <strong>2x</strong> + <strong>a</strong>. Je me suis empressé de compléter mon système linéaire, et je l’ai donné à résoudre à un calculateur en ligne (ne me jugez pas, résoudre des systèmes linéaires à 6 chiffres le dimanche après-midi n’est pas franchement mon passe-temps préféré). J’ai rentré les équations, cliqué sur “résoudre”, et attendu. Tout ça pour découvrir qu’une des équations était linéairement dépendante des trois autres.</p><p>Première réaction : comment c’est possible ?! Quelle autre équation je peux trouver pour résoudre ce système ? Je dois trouver la valeur de <strong>a</strong> !</p><p>Éclair de génie quelques instants plus tard : si une des équations dépend en effet des trois autres, ça signifie que ma théorie est valable !</p></div>
+</div>                                    <div class="magazine-container">
+	<figure class="magazine__imageright">
+					<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b1ba6db183-1701364374/stingmon-cosplay-175x-blur1-q20.jpg"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b1ba6db183-1701364374/stingmon-cosplay-350x.jpg 350w"
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b1ba6db183-1701364374/stingmon-cosplay-350x.jpg 350w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/b1ba6db183-1701364374/stingmon-cosplay-540x.jpg 540w" />
+					</figure>
+	<div class="magazine__text">
+       <p>Je ne m’en étais pas aperçu immédiatement, mais c’était la preuve que mon idée tenait debout : si la quatrième équation pouvait être créée en utilisant les trois autres, ça voulait dire que le système avait une infinité de solutions, quelle que soit la valeur que je prenne comme adresse mémoire relative. D’habitude, quand on a un système avec une équation redondante, le système est soit impossible, soit possède une infinité de solutions.</p><p></p><p>Celui-ci appartenait à la seconde catégorie, ce qui signifiait que je pouvais ne pas me préoccuper de la valeur de <strong>a</strong>, que je plaçais donc à 0. Ça a eu pour effet de déplacer la moitié de la valeur de <strong>a</strong>, quelle qu’elle soit, à l’intérieur des autres variables, ce qui a rendu possible la résolution du système pour les autres variables. Et en plus, je n’avais plus besoin d’un système d’équations : un simple match miroir pouvait me donner les bonnes valeurs pour chaque personnage, puisque l’équation devenait simplement 2<strong>x</strong> = adresse. Et du coup, il ne me restait plus qu’à trouver la taille du bloc de chaque personnage une seule fois, pour pouvoir traiter tous ses autres match-ups.</p><p>Pour vérifier que ma théorie était vraiment solide, j’ai lancé un match miroir avec <em>Renamon</em>, calculé la valeur, puis je l’ai ajoutée à la valeur que j’avais trouvée pour <em>Gatomon</em>, j’ai croisé les doigts et noté l’adresse mémoire ainsi trouvée. Puis, j’ai lancé un match <em>Renamon</em> vs <em>Gatomon</em>, et j’ai surveillé la valeur que je venais de calculer au début du match.</p>	</div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Je ne peux pas parler pour mes voisins, mais vu comme les murs de mon appartement sont fins, je suis à peu près certain qu’ils ont entendu mon hurlement de joie quand j’ai vu que la valeur était effectivement 120. <strong>Boom, headshot !</strong> Je suis revenu frénétiquement à mon outil permettant d'observer la mémoire du jeu, pour me rendre compte que la localisation du joueur 2 dans la mémoire était toujours à la même distance (132 bytes pour être précis) de celle du joueur 1. Les valeurs de la Digi bar (la barre de super du jeu) suivaient le même modèle.</p><p>Je n’avais plus qu’à lancer 19 matchs miroir pour récupérer les valeurs manquantes. J'ai commencé avec <em>BlackWarGreymon</em>. Puis <em>Wormon</em>, le personnage avec la plus faible valeur de défense selon la communauté. Puis, <em>WarGreymon</em>.</p><p>J’ai paramétré mon script de test, fait apparaître les barres de vie en pourcentages, chargé ma super avec les deux <em>WarGreymon</em> et balancé la sauce sur un pauvre petit <em>Wormon</em> innocent.</p><p><em>Terra Force</em> infligea un burst dévastateur de 52% de dégâts, qui fit trembler l’écran. Mais <em>Terra Destroyer</em> était encore plus impitoyable, dévorant 68% de la barre de vie du pauvre petit Digimon insecte. Soixante. Huit. Pourcents. En un coup. Je laissais échapper un <em>Wooooo</em> à la Ric Flair. Je l’avais. Ma victoire, pure, et sans compromis.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+					<video class="magazine-container__video lazy"
+				autoplay playsinline loop mute				>
+				<source data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/07967e9d32-1701364374/terradestroyer.mp4">
+			</video>
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>On était dimanche, tard dans la nuit. J’avais travaillé sur un script pour montrer le total de vie de chaque personnage et le faire apparaître sur le HUD. Et, après 18 ans, j'avais enfin clos le débat avec mon frère.</p></div>
+</div>                                    <div class="magazine-container">
+  <div class="magazine__text">
+    <h2>
+      Le dernier obstacle, ou pourquoi vous devriez prendre en compte les canaris    </h2>
+  </div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Passé toute cette excitation, je me rendis compte que, après avoir réglé toutes ces questions passionnantes, j’avais négligé le problème initial qui m‘avait mené à tout ça : m’entrainer à faire l’infini de <em>Stingmon</em>.</p><p>Je pouvais forcer l’adversaire à garder, d’accord, mais pas après le premier hit. Ce qui était, par définition, l’élément précis dont j’avais besoin pour m'entraîner à faire un combo infini. J’y ai réfléchi pendant un moment. Je ne savais pas comment récupérer les valeurs d'étourdissement aka hitstun. Je n’avais pas particulièrement envie de replonger dans cet enfer. Et du coup, j’ai fait ce que n’importe quel physicien aurait fait à ma place : j’ai choisi l’option de la flemme et j’ai cherché un canari.</p></div>
+</div>                                    <div class="magazine-container">
+	<figure class="magazine__imageleft">
+					<img loading="lazy" 
+			    class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/09aaab3a3a-1701364374/angumon-175x-blur1-q20.png"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/09aaab3a3a-1701364374/angumon-350x.png 350w"
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/09aaab3a3a-1701364374/angumon-350x.png 350w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/09aaab3a3a-1701364374/angumon-540x.png 540w" />
+							<figcaption class="magazine__sub-image-citation">
+				<small>
+					<p><em>Il est jaune, mais Angumon n'est pas un canari</em></p>				</small>
+			</figcaption>
+			</figure>
+	<div class="magazine__text">
+       <p>Avant que vous n’appeliez la police pour me faire interner, je ne parle pas du petit oiseau jaune. J’ai eu trois canaris dans ma vie, <em>Titti</em>, <em>Ozio</em> et <em>Kimi</em>, mais tout ça n’a rien à voir avec eux. Vous connaissez l’expression “un canari dans une mine de charbon”, pour parler d’un danger imminent ? C’est de ce canari là dont je parle : un objet indépendant qui change d’état uniquement quand un personnage se fait toucher.</p>	</div>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>J’ai imaginé deux ou trois possibilités, la première étant “la taille de la barre de vie”, la seconde étant “la taille de la Digi barre”. La première option avait un gros inconvénient : quand les barres de vie étaient gelées par le code du mode training, ça ne pouvait pas fonctionner. La seconde option avait un souci similaire, bien qu’un peu différent : la Digi barre a un palier maximum, après lequel elle n’augmente plus. C’est comme ça que j’en suis arrivé à la possibilité #3 : le score.</p><p>Dans ce jeu, chaque coup a un score qui lui est propre, qui vous est accordé si le coup touche l’adversaire et n’est pas bloqué. Le score du joueur attaquant augmente et son coup inflige des dégâts à l’adversaire. Par pure coïncidence, les adresses des scores faisaient partie des quelques adresses qui étaient complètement indépendantes des personnages, et je les avais déjà trouvées par hasard lors d’une de mes plongées précédentes.</p><p>J’ai ajouté une option au script pour déclencher l’action désirée lorsque le score du joueur 1 augmente, croisé les doigts, et chargé ça dans le jeu.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+	
+			
+			<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/547ca89536-1701364374/ljpwquv0-png-small-200x-blur1-q20.png"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/547ca89536-1701364374/ljpwquv0-png-small-400x.png 400w" 
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/547ca89536-1701364374/ljpwquv0-png-small-400x.png 400w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/547ca89536-1701364374/ljpwquv0-png-small-600x.png 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/547ca89536-1701364374/ljpwquv0-png-small-800x.png 800w"/> 
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Lorsque l’adversaire s’est mis à bloquer le 3ème coup de mon pseudo-infini de <em>Stingmon</em>, mon cœur s’est emballé à la fois d’une joie intense et d’une tristesse profonde.</p><p>De joie, car j’avais finalement résolu le problème qui avait été au départ de tout cela, et crée un training mode complètement fonctionnel pour un vieux jeu de Playstation émulé.</p><p>De tristesse car, comme je m’en rendais compte, j’étais bien loin de réussir à faire cette boucle plus de deux fois de suite avec mon niveau actuel.</p></div>
+</div>                                    
+<div class="magazine-container--large">
+	<figure>
+	
+			
+			<img loading="lazy" 
+				class="lazy" 
+				src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/87948ba0a0-1701364374/screenshot1-200x-blur1-q20.png"
+				data-src="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/87948ba0a0-1701364374/screenshot1-400x.png 400w" 
+				data-srcset="/media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/87948ba0a0-1701364374/screenshot1-400x.png 400w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/87948ba0a0-1701364374/screenshot1-600x.png 600w, /media/pages/articles/comment-j-ai-cree-un-mode-training-pour-un-jeu-digimon-sur-ps1/87948ba0a0-1701364374/screenshot1-800x.png 800w"/> 
+					</figure>
+</div>                                    <div class="magazine-container">
+	<div class="magazine__text">
+       <p>Tant pis : si j’avais réussi à faire tout ça en trois jours, je devais bien être capable de bosser mon timing et de réussir ce combo <em>0-to-death</em> au moins une fois, non ?</p></div>
+</div>                                <div class="article__footer">
+  <div class="article__KO">
+    <span>K</span>.<span>O</span>.
+  </div>
+  <div class="article__author">
+        <h4>
+      Andrea Demetrio    </h4>
+    <p><small>
+        Andrea Demetrio est un physicien, un savant fou, et également un <a href="https://gamejolt.com/games/schwarzerblitz/242456">studio de jeux de combat ind&eacute;pendant</a> à lui tout seul ainsi qu’une figure importante de la scène VS indé. Si vous souhaitez savoir si il est parvenu à faire son combo 0-to-death de Stingmon, vous pouvez le suivre sur <a href="https://twitter.com/AndreaDProjects">Twitter</a>.</small></p>
+      </div>
+
+</div>
+
+<div>
+    <div class="article__credits">
+    <p><small>
+        <p>Merci à Andrea pour son humour et sa disponibilité. Le code pour son mode training mode est disponible gratuitement sur <a href="https://github.com/AndreaJens/DigimonRumbleArenaTrainingTools" rel="noopener noreferrer nofollow">GitHub</a>. Traduit de l'anglais par Pr0sk, correction par Neithan.</p>    </small></p>
+  </div>
+  </div>
+  </div>
+
+            </div>
+
+        </article>
+<footer>
+    <div class="footer__background">
+        <div class="footer__container">
+            <div class="footer-list">
+                <ul>
+                    
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/rounds">
+                            Rounds
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/articles">Articles</a>
+                    </li>
+                                        <li>
+                        <a href="https://basgrospoing.fr/fr/podcasts">Podcasts</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/feed">
+                            Flux RSS du site</a>
+                    </li>
+                                        <li>
+                        <a href="https://basgrospoing.fr/fr/podcasts/feed">
+                            Flux RSS des podcasts</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="footer-list">
+                <ul>
+                 <li>
+                        <a href="https://basgrospoing.fr/fr/carte-des-assos-bagarre-francophones">
+                            Trouver des joueurs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/sponsors">
+                            Sponsors
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/contact">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://basgrospoing.fr/fr/mentions-legales">
+                            Mentions légales</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="footersocial">
+<ul>
+    <li>
+        <a href="https://facebook.com/basgrospoing/">
+            <img loading="lazy"  src="/assets/images/fb.svg" alt="Facebook">
+        </a>
+    </li>
+    <li> <a href="http://twitter.com/basgrospoing/">
+            <img loading="lazy"  src="/assets/images/tw.svg" alt="Twitter">
+        </a>
+        </li>
+    <li>
+         <a href="https://www.youtube.com/user/BasGrosPoingPodcast/">
+            <img loading="lazy"  src="/assets/images/yt.svg" alt="Youtube">
+        </a>
+    </li>
+    <li>
+         <a href="https://itunes.apple.com/fr/podcast/bas-gros-poing/">
+            <img loading="lazy"  src="/assets/images/itunes.svg" alt="iTunes">
+        </a>
+    </li>
+</ul>
+
+<div class="footersocial__sponsor">
+
+<small>Made with</small>
+<a href="https://getkirby.com/">
+<svg width="121" height="42" xmlns="http://www.w3.org/2000/svg"><path d="M18 0l18 10.498v21.004L18 42 0 31.502V10.498L18 0zM2 11.693v18.614l16 9.332 16-9.332V11.693L18 2.36 2 11.693z"/><path d="M26 21l-5 2.59V24h5v4H10v-4h5v-.437L10 21v-5l8 4.297L26 16"/><g><path d="M62.774 23.603l-1.97 2.162v5.255H56V11.095h4.803v8.785l1.67-2.531 4.297-6.254h5.94l-6.734 8.813L72.71 31.02h-5.693l-4.242-7.417zM78.58 31.02h-4.626V16.213h4.626V31.02zm11.796-10.633l-1.519-.11c-1.45 0-2.381.456-2.792 1.369v9.374h-4.611V16.213h4.324l.15 1.902c.776-1.45 1.857-2.176 3.244-2.176.492 0 .921.055 1.286.164l-.082 4.284zm15.41 3.352c0 2.427-.503 4.293-1.506 5.598-1.004 1.304-2.418 1.956-4.242 1.956-1.506 0-2.72-.597-3.64-1.792l-.192 1.519h-4.133V10h4.612v7.403c.857-.976 1.966-1.464 3.325-1.464 1.843 0 3.266.662 4.27 1.984 1.003 1.323 1.505 3.184 1.505 5.584v.232zm-4.626-.287c0-1.423-.19-2.438-.568-3.045-.379-.606-.96-.91-1.745-.91-1.04 0-1.76.397-2.162 1.19v5.885c.392.785 1.122 1.177 2.19 1.177 1.085 0 1.774-.529 2.066-1.587.146-.52.219-1.424.219-2.71zm12.425 1.109l2.464-8.348h4.94l-6.035 17.284-.26.63c-.858 1.915-2.372 2.873-4.543 2.873a7.201 7.201 0 0 1-1.903-.274v-3.298h.602c.648 0 1.143-.093 1.485-.28.342-.187.596-.523.76-1.006l.37-.985-5.146-14.944h4.926l2.34 8.348zM76.25 15a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></g></svg>
+</a>
+<small>and ❤</small>
+</div>
+
+
+
+</div>
+            <div class="timer">
+    <a class="timer__continue" href="http://patreon.com/basgrospoing"  >Continue?</a>
+    <div id="timer"></div>
+
+
+            <a class="timer_coin"href="http://patreon.com/basgrospoing">Insert coin!</a>
+        <p>Aidez BGP à se développer !</p>
+</div>        </div>
+    </div>
+</footer>
+
+<div class="helpbgp">
+   <a href="http://patreon.com/basgrospoing">
+   <div class="helpbgp__img">
+    <img loading="lazy"  src="/assets/images/help.svg" alt="Aidez Bas Gros Poing">
+    </div>
+   <div class="helpbgp__msg">
+        <h4>INSERT COIN ?</h2>
+        <p>
+        Aidez BGP à se développer !        </p>
+    </div>
+</a>
+</div>
+<div class="theme-switcher" onclick="toggleDarkLight()" title="Toggle dark/light mode">
+    <span>
+        <svg style="height:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 89 89"><title>Fichier 1</title><g id="Calque_2" data-name="Calque 2"><g id="Calque_1-2" data-name="Calque 1"><image width="89" height="89" xlink:href="data:image/png;base64,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"/></g></g></svg>
+    </span>
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.srcset = lazyImage.dataset.srcset;
+          lazyImage.classList.remove("lazy");
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+  var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(video) {
+        if (video.isIntersecting) {
+          for (var source in video.target.children) {
+            var videoSource = video.target.children[source];
+            if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+              videoSource.src = videoSource.dataset.src;
+            }
+          }
+
+          video.target.load();
+          video.target.classList.remove("lazy");
+          lazyVideoObserver.unobserve(video.target);
+        }
+      });
+    });
+
+    lazyVideos.forEach(function(lazyVideo) {
+      lazyVideoObserver.observe(lazyVideo);
+    });
+  }
+});
+
+</script>
+
+
+<script>
+//Footer countdown
+document.addEventListener("DOMContentLoaded", function () {
+    var timeoutHandle;
+    var hasStarted = false;
+    function countdown(minutes) {
+        var seconds = 11;
+
+        function tick() {
+            var counter = document.getElementById("timer");
+            seconds--;
+            counter.innerHTML =
+                (seconds < 10 ? "" : "") + String(seconds);
+            if (seconds > 0) {
+                timeoutHandle = setTimeout(tick, 1000);
+            } else {
+                counter.innerHTML = "GAME OVER";
+            }
+        }
+        tick();
+    }
+
+    var footer = document.querySelector('footer');
+    var bounding = footer.getBoundingClientRect();
+    if (isInViewport(footer) && hasStarted == false) {
+        hasStarted = true;
+        countdown(0);
+    } else {
+        window.addEventListener('scroll', function (event) {
+            if (isInViewport(footer) && hasStarted == false) {
+                hasStarted = true;
+
+                countdown(0);
+            }
+        }, false);
+    }
+
+});
+
+var isInViewport = function (elem) {
+    var bounding = elem.getBoundingClientRect();
+    return (
+        bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+};
+
+</script>
+
+<script>
+  var lastScrollTop = 0;
+  var mag;
+  if (document.querySelector("#magazine")) {
+    window.addEventListener("scroll", function () {
+      var st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop) {
+        var header = document.getElementsByTagName("header")[0];
+        header.classList.add("header-mag");
+      } else {
+        var header = document.getElementsByTagName("header")[0];
+        header.classList.remove("header-mag");
+      }
+      lastScrollTop = st;
+    }, false);
+  }
+
+  window.addEventListener('scroll', function (e) {
+    var s = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode ||
+      document.body).scrollTop;
+    var body = document.body;
+    var html = document.documentElement;
+    var d = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    var c = window.innerHeight;
+    var position = (s / (d - c)) * 100;
+    document.getElementById('Progress-bar').setAttribute('style', 'width: ' + position + '%');
+  });
+</script>
+
+</body>
+</html>
